@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Products | E-Commerce Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    #product-list {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .product {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      width: 250px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .product h3 {
+      margin-top: 0;
+    }
+
+    .product button {
+      background-color: teal;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .cart-button {
+      margin-top: 30px;
+    }
+
+    .cart-button a button {
+      padding: 10px 20px;
+      background-color: teal;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <h1>Welcome to Our Store</h1>
+
+    <div id="product-list"></div>
+
+    <div class="cart-button">
+      <a href="cart.html"><button>Go to Cart 🛒</button></a>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .product-detail {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .product-detail h2 {
+      margin-top: 0;
+    }
+    .product-detail button {
+      padding: 10px 20px;
+      background-color: teal;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="product-detail">
+    <h2>Smartphone</h2>
+    <p><strong>Price:</strong> ₹15,000</p>
+    <p><strong>Description:</strong> A powerful Android smartphone with the latest features.</p>
+    <button onclick="addToCart()">Add to Cart</button>
+  </div>
+
+  <script>
+    function addToCart() {
+      const product = {
+        id: 3,
+        name: "Smartphone",
+        price: 15000,
+        description: "A powerful Android smartphone with the latest features."
+      };
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Product added to cart!");
+    }
+  </script>
+</body>
+</html>

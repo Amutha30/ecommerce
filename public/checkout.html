@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout | E-Commerce Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 30px;
+      margin: 0;
+    }
+
+    .checkout-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .cart-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .total {
+      text-align: right;
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .place-order {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .place-order button {
+      background-color: teal;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .place-order button:hover {
+      background-color: #006666;
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <h2>Order Summary</h2>
+    <div id="cart-items">
+      <!-- Items will be listed here -->
+    </div>
+    <div class="total" id="total-price">Total: ₹0</div>
+
+    <div class="place-order">
+      <button onclick="placeOrder()">Place Order</button>
+    </div>
+  </div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const username = localStorage.getItem("username"); // ✅ From login
+
+    const cartDiv = document.getElementById("cart-items");
+    const totalDiv = document.getElementById("total-price");
+    let total = 0;
+
+    // Render cart items
+    if (cart.length === 0) {
+      cartDiv.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+      cart.forEach(item => {
+        total += item.price;
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `<strong>${item.name}</strong> - ₹${item.price}`;
+        cartDiv.appendChild(div);
+      });
+      totalDiv.textContent = `Total: ₹${total}`;
+    }
+
+    // Send order to backend
+    function placeOrder() {
+      if (!username) {
+        alert("Please log in first.");
+        return;
+      }
+
+      if (cart.length === 0) {
+        alert("Cart is empty.");
+        return;
+      }
+
+      fetch("/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, cart })
+      })
+        .then(response => {
+          if (response.ok) {
+            localStorage.removeItem("cart");
+window.location.href = "/thankyou.html";
+          } else {
+            alert("❌ Failed to place order.");
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("❌ Error placing order.");
+        });
+    }
+  </script>
+</body>
+</html>
